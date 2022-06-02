@@ -44,7 +44,9 @@ func ApiHandler(ctx *fiber.Ctx) error {
 	}
 
 	if res.StatusCode != 200 {
-		return ctx.Status(500).Send(body)
+		myString := string(body)
+		log.Println("API Error:", myString)
+		return ctx.Status(500).SendString("An Error Occurred with the API")
 	}
 
 	data := &entities.ProfileInfo{}
