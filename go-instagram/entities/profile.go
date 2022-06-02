@@ -18,25 +18,34 @@ type nodeInfo struct {
 	} `json:"edge_liked_by"`
 }
 
+type ProfileInfo struct {
+	DataInfo struct {
+		User UserInfo `json:"user"`
+	} `json:"data"`
+	Status string `json:"status"`
+}
+
+type UserInfo struct {
+	EdgeFollowedBy struct {
+		Count int `json:"count"`
+	} `json:"edge_followed_by"`
+	EdgeFollow struct {
+		Count int `json:"count"`
+	} `json:"edge_follow"`
+	Id    string `json:"id"`
+	Media struct {
+		Edges []struct {
+			Node nodeInfo `json:"node"`
+		} `json:"edges"`
+		PageInfo pageInfo `json:"page_info"`
+	} `json:"edge_owner_to_timeline_media"`
+}
+
 type ProfileData struct {
 	EntryData struct {
 		ProfilePage []struct {
 			Graphql struct {
-				User struct {
-					EdgeFollowedBy struct {
-						Count int `json:"count"`
-					} `json:"edge_followed_by"`
-					EdgeFollow struct {
-						Count int `json:"count"`
-					} `json:"edge_follow"`
-					Id    string `json:"id"`
-					Media struct {
-						Edges []struct {
-							Node nodeInfo `json:"node"`
-						} `json:"edges"`
-						PageInfo pageInfo `json:"page_info"`
-					} `json:"edge_owner_to_timeline_media"`
-				} `json:"user"`
+				User UserInfo `json:"user"`
 			} `json:"graphql"`
 		} `json:"ProfilePage"`
 	} `json:"entry_data"`
